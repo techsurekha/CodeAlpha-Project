@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        function calculateAge() {
+			// Get input values
+			var dobDay = document.getElementById('dobDay').value;
+			var dobMonth = document.getElementById('dobMonth').value;
+			var dobYear = document.getElementById('dobYear').value;
+
+			if(dobDay == '' && dobMonth == '' && dobYear == '') {
+				// Display result
+				document.getElementById('result').innerHTML = 'Your age is: New Born';
+			} else if(dobDay == '0' && dobMonth == '0' && dobYear == '0') {
+				// Display result
+				document.getElementById('result').innerHTML = 'Your age is: New Born';
+			} else {
+				// Create Date object from input
+				var birthDate = new Date(dobYear, dobMonth - 1, dobDay); // month is 0-indexed in Date constructor
+
+				// Get current date
+				var currentDate = new Date();
+
+				// Calculate age
+				var age = currentDate.getFullYear() - birthDate.getFullYear();
+
+				// Check if birthday has occurred this year
+				if (currentDate.getMonth() < birthDate.getMonth() ||
+					(currentDate.getMonth() == birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+					age--;
+				}
+				// Display result
+				document.getElementById('result').innerHTML = 'Your age is: '+age;
+			}	
+		}
+    </script>
+</head>
+<body>
+    <h2>Age Calculator</h2>
+    <label for="dobDay">Date of Birth:</label>
+    <input type="number" id="dobDay" placeholder="Day" min="1" max="31" required>
+    <input type="number" id="dobMonth" placeholder="Month" min="1" max="12" required>
+    <input type="number" id="dobYear" placeholder="Year" min="1900" max="2024" required>
+    <button onclick="calculateAge()">Calculate Age</button>
+    <p id="result"></p>
+
+    <script>
+        // JavaScript code will go here
+    </script>
+</body>
+</html>
+
